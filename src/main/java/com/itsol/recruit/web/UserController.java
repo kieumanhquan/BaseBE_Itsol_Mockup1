@@ -30,6 +30,7 @@ public class UserController {
     public ResponseEntity<User> findUserById(@RequestParam("id") Long id){
         return  ResponseEntity.ok().body( userService.findById(id));
     }
+
     @PutMapping(value = "/user")
     public ResponseEntity<User> update(@RequestBody User user){
         try {
