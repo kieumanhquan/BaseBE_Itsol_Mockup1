@@ -12,6 +12,8 @@ public interface UserService {
 
     public User findUserByUserName(String userName);
 
+    public User update(User user);
+
     public List<User> findAll();
 
     int updateUserPassword(String userName,String password);
