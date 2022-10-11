@@ -10,6 +10,8 @@ public interface UserService {
 
     public User findUserByEmail(String email);
 
+    public User update(User user);
+
     public List<User> findAll();
 
     int updateUserPassword(String email,String password);
