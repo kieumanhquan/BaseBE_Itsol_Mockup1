@@ -16,11 +16,12 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryExt {
 
     @Modifying
-    @Query("update Users u set u.password = :password where u.userName = :userName")
-    int updateUserPassword(@Param("userName") String userName,
+    @Query("update Users u set u.password = :password where u.email = :email")
+    int updateUserPassword(@Param("email") String email,
                            @Param("password") String password);
 
     User findByUserName(String userName);
 
-    Optional<User> findByEmail(String username);
+    @Query("select u from Users u where u.email = :email")
+    User findByEmail(String email);
 }

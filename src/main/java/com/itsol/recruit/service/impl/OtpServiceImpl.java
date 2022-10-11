@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+
 @Service
 @Transactional
 public class OtpServiceImpl implements OtpService {
+
     public final OtpRepository otpRepository;
 
     public OtpServiceImpl(OtpRepository otpRepository) {
@@ -19,6 +21,11 @@ public class OtpServiceImpl implements OtpService {
     @Override
     public List<Otp> getAllOtp() {
         return otpRepository.findAll();
+    }
+
+    @Override
+    public List<Otp> checkOtp(String email) {
+        return otpRepository.checkOtp(email);
     }
 
     @Override

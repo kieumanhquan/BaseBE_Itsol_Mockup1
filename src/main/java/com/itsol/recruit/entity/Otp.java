@@ -20,9 +20,8 @@ public class Otp {
     @Column(name = "code")
     Integer code;
 
-    @ManyToOne
-    @JoinColumn(name = "User_id")
-    User user;
+    @Column(name = "User_id")
+    Long userid;
 
     @Column(name = "status")
     Integer status;

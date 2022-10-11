@@ -19,10 +19,6 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    @Override
-    public List<User> getAllUser() {
-        return userRepository.findAll();
-    }
 
     @Override
     public User findById(Long id) {
@@ -30,8 +26,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByUserName(String userName) {
-        return userRepository.findByUserName(userName);
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
@@ -42,5 +38,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public int updateUserPassword(String userName, String password) {
         return userRepository.updateUserPassword(userName,password);
+    }
+
+    @Override
+    public User updateUser(User user) {
+        return userRepository.save(user);
     }
 }

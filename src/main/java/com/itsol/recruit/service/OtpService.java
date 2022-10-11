@@ -7,5 +7,7 @@ import java.util.List;
 public interface OtpService {
     public List<Otp> getAllOtp();
 
+    public List<Otp> checkOtp(String email);
+
     public Otp save(Otp otp);
 }

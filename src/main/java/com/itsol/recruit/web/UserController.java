@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping(value = "/user")
     public ResponseEntity<List<User>> getAllUser(){
-        return  ResponseEntity.ok().body( userService.getAllUser());
+        return  ResponseEntity.ok().body( userService.findAll());
     }
 
     @GetMapping(value = "/user/{id}")
