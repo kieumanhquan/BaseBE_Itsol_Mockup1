@@ -15,31 +15,32 @@ import java.util.List;
 
 public class UserController {
 
-    public final UserService userService ;
+    public final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping(value = "/user")
-    public ResponseEntity<List<User>> getAllUser(){
-        return  ResponseEntity.ok().body( userService.getAllUser());
+    public ResponseEntity<List<User>> getAllUser() {
+        return ResponseEntity.ok().body(userService.getAllUser());
     }
 
     @GetMapping(value = "/user/{id}")
-    public ResponseEntity<User> findUserById(@RequestParam("id") Long id){
-        return  ResponseEntity.ok().body( userService.findById(id));
+    public ResponseEntity<User> findUserById(@RequestParam("id") Long id) {
+        return ResponseEntity.ok().body(userService.findById(id));
     }
 
     @PutMapping(value = "/user")
-    public ResponseEntity<User> update(@RequestBody User user){
+    public ResponseEntity<User> update(@RequestBody User user) {
         try {
             return ResponseEntity.ok(userService.update(user));
         } catch (Exception e) {
             return ResponseEntity.ok().build();
         }
     }
-//    @PutMapping(value = "{user/updating}")
+
+    //    @PutMapping(value = "{user/updating}")
 //    public ResponseEntity<User> updateinfo(@RequestParam("username") String  email, @RequestBody UserDTO userDTO){
 //        try {
 //
@@ -47,5 +48,10 @@ public class UserController {
 //            return ResponseEntity.ok().build();
 //        }
 //    }
+    @GetMapping(value = "/user/username/{username}")
+    public ResponseEntity<User> findUserByUserName(@PathVariable String username) {
+        return ResponseEntity.ok().body(userService.findUserByUserName(username));
+    }
+
 
 }

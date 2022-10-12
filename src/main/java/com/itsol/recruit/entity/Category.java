@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class Category {
     @Id
     @Column(nullable = false)
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CATEGORIES_SEQ")
+    @SequenceGenerator(name = "CATEGORIES_SEQ", sequenceName = "CATEGORIES_SEQ", allocationSize = 1, initialValue = 1)
     int id;
     @Column(name = "name")
     String name;

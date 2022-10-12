@@ -16,7 +16,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryExt {
 
     @Modifying
-    @Query("update Users u set u.password = :password where u.userName = :userName")
+    @Query("update User u set u.password = :password where u.userName = :userName")
     int updateUserPassword(@Param("userName") String userName,
                            @Param("password") String password);
 

@@ -11,6 +11,6 @@ import java.util.List;
 
 @Repository
 public interface ContractRepository extends JpaRepository<Contract,Integer> {
-    @Query("SELECT C FROM Contract c where c.user = :cid")
+    @Query("SELECT c FROM Contract c where c.user = :cid")
     public List<Contract> findByUser(@Param("cid") User user);
 }
