@@ -5,7 +5,10 @@ import com.itsol.recruit.entity.Otp;
 import java.util.List;
 
 public interface OtpService {
-    public List<Otp> getAllOtp();
+    List<Otp> getAllOtp();
 
-    public Otp save(Otp otp);
+    Otp save(Otp otp);
+
+    List<Otp> findAllByUser();
+
 }
