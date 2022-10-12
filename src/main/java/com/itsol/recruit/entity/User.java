@@ -1,5 +1,6 @@
 package com.itsol.recruit.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.Type;
@@ -8,7 +9,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "Users")
+@Entity
+@Table(name = "Users")
 @Data
 @Builder
 @NoArgsConstructor
@@ -22,7 +24,7 @@ public class User{
     Long id;
 
     @Column(name = "name")
-    String name;
+    String fullName;
 
     @Column(name = "email")
     String email;
@@ -45,6 +47,7 @@ public class User{
     @Column(name = "gender")
     String gender;
 
+    @JsonFormat(pattern = "YYYY-MM-dd")
     @Column(name = "birth_day")
     Date birthDay;
 

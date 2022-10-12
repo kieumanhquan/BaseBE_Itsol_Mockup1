@@ -2,11 +2,13 @@ package com.itsol.recruit.web.auth;
 
 import com.itsol.recruit.core.Constants;
 import com.itsol.recruit.dto.UserDTO;
+import com.itsol.recruit.entity.PasswordBean;
 import com.itsol.recruit.entity.User;
 import com.itsol.recruit.security.jwt.JWTFilter;
 import com.itsol.recruit.security.jwt.TokenProvider;
 import com.itsol.recruit.service.AuthenticateService;
 import com.itsol.recruit.service.UserService;
+import com.itsol.recruit.utils.EncryptUtil;
 import com.itsol.recruit.web.vm.LoginVM;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = Constants.Api.Path.AUTH)
@@ -68,6 +72,26 @@ public class AuthenticateController {
 //        User userLogin = userService.findUserByUserName(adminLoginVM.getUserName());
 //        return ResponseEntity.ok().body(new JWTTokenResponse(jwt, userLogin.getUserName())); //Trả về chuỗi jwt(authentication string)
 
+    }
+    @PutMapping("/rest/{id}")
+    public ResponseEntity<?> changePassword(@PathVariable("id") Long id,@Valid @RequestBody PasswordBean passwordBean){
+        try {
+            User user = userService.findById(id);
+            Boolean checkPassOld = EncryptUtil.check(passwordBean.getPasswordOld(), user.getPassword());
+            Map<String, String> mapError = new HashMap<>();
+            if(!checkPassOld){
+                mapError.put("passwordOld", "Old password is not correct !");
+                return ResponseEntity.badRequest().body(mapError);
+            }else if(!passwordBean.getPasswordNew().equals(passwordBean.getConfirmPassword())) {
+                mapError.put("confirmPassword", "Confirmation password is incorrect !");
+                return ResponseEntity.badRequest().body(mapError);
+            }
+            String passwordHash = EncryptUtil.encrypt(passwordBean.getPasswordNew());
+            user.setPassword(passwordHash);
+            return ResponseEntity.ok(userService.update(user));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
 }
