@@ -17,13 +17,15 @@ public class Otp {
     @SequenceGenerator(name = "OTP_UEQ", sequenceName = "OTP_SEQ", allocationSize = 1)
     Integer id;
 
-    @Column(name = "code")
+    @Column(name = "CODE")
     Integer code;
 
-    @ManyToOne
-    @JoinColumn(name = "User_id")
-    User user;
+    @Column(name = "USER_ID")
+    Long userid;
 
-    @Column(name = "status")
+    @Column(name = "ISSUE_AT")
+    Long issue_At;
+
+    @Column(name = "STATUS")
     Integer status;
 }
