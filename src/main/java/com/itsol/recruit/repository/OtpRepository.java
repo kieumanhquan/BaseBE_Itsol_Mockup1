@@ -13,8 +13,7 @@ import java.util.List;
 
 @Repository
 public interface OtpRepository extends JpaRepository<Otp, Long> {
-    @Modifying
-    @Query("select o from Otp o inner join  Users u on o.userid = u.id where u.email = :email")
-    List<Otp> checkOtp(@Param("email") String email);
+    @Query("select o from Otp o where o.userid =?1 and o.code =?2")
+    Otp findByUserId(Long userId, Integer code);
 
 }

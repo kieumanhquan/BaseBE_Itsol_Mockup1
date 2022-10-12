@@ -1,7 +1,9 @@
 package com.itsol.recruit.web;
 
 import com.itsol.recruit.entity.Otp;
+import com.itsol.recruit.entity.ResponseObject;
 import com.itsol.recruit.entity.User;
+import com.itsol.recruit.repository.OtpRepository;
 import com.itsol.recruit.service.EmailSenderService;
 import com.itsol.recruit.service.OtpService;
 import com.itsol.recruit.service.UserService;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -26,13 +29,14 @@ public class ForgotController {
     OtpService otpService;
     @Autowired
     PasswordEncoder passwordEncoder;
+    @Autowired
+    OtpRepository otpRepository;
 
 
     @GetMapping("{email}")
-    public boolean sendMail(@PathVariable("email") String email) {
+    public ResponseEntity<ResponseObject> sendMail(@PathVariable("email") String email) {
         for (User x : userService.findAll()
         ) {
-            System.out.println(x.getEmail());
             if (x.getEmail().equals(email) && x.isActive() == true) {
                 Random random = new Random();
                 int otp = random.nextInt(900000) + 100000;
@@ -41,31 +45,34 @@ public class ForgotController {
                 ot.setCode(otp);
                 ot.setUserid(x.getId());
                 ot.setStatus(1);
+                ot.setIssue_At(System.currentTimeMillis() + 300000);
                 otpService.save(ot);
                 emailSenderService.sendSimpleEmail(email, "OTP code", "Your OTP code is: " + otp);
                 System.out.println("OTP da duoc gui den email cua ban!");
-                return true;
+                return ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject(HttpStatus.OK, "OTP da duoc gui den email cua ban!", x)
+                );
             }
-            System.out.println("Khong co email nay trong he thong");
-            return false;
         }
-        return false;
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject(HttpStatus.BAD_REQUEST, "Email ko ton tai!", email)
+        );
     }
 
 
-    @GetMapping("getotp")
-    public List<Otp> getOtp(@RequestParam("email") String email) {
-        System.out.println(email);
-        return otpService.checkOtp(email);
+    @GetMapping("checkotp")
+    public ResponseEntity<?> findByUserId(@RequestParam("USER_ID") Long userId,
+                                          @RequestParam("CODE") Integer code){
+        Otp otp = otpRepository.findByUserId(userId,code);
+        if(otpRepository.findByUserId(userId,code) == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST,"Mã OTP không đúng","")
+            );
+        } else if (otp.getIssue_At() <= new Date().getTime()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Otp này đã hết hạn!", ""));
+        }
+        return ResponseEntity.ok().body(HttpStatus.OK);
     }
-
-
-    @PutMapping("/changepass")
-    public User changePass(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password) {
-        User user = userService.findUserByEmail(email);
-        user.setPassword(password);
-        return userService.updateUser(user);
-    }
-
 
 }
