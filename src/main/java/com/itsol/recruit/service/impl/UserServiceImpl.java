@@ -40,12 +40,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int updateUserPasswordName(String userName, String password) {
+        return 0;
+    }
+
+    @Override
     public int updateUserPassword(String userName, String password) {
         return userRepository.updateUserPassword(userName,password);
     }
 
     @Override
     public User updateUser(User user) {
+
         return userRepository.save(user);
+    }
+
+    @Override
+    public User findUserByUserName(String username) {
+        return userRepository.findByUserName(username);
     }
 }

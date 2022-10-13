@@ -34,6 +34,6 @@ public class TransferServiceIml implements TransferService {
 
     @Override
     public Transfer getById(Integer id) {
-        return transferRepo.getById(id);
+        return transferRepo.findById(id).get();
     }
 }

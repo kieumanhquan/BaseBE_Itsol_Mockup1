@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "UNITS")
@@ -22,5 +23,7 @@ public class Unit {
     String name;
     @Column(name = "status")
     int status;
+//    @OneToMany
+//    List<User> list_user;
 
 }

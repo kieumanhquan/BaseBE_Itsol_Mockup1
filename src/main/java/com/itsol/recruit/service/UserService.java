@@ -21,4 +21,6 @@ public interface UserService {
     int updateUserPassword(String email,String password);
 
     public User updateUser(User user);
+
+    User findUserByUserName(String username);
 }

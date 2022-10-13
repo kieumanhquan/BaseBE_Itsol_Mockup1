@@ -45,8 +45,19 @@ public class TransferController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
-    @GetMapping("transfer/{id}")
+    @DeleteMapping("transfer/{id}")
     public void delete(@RequestParam("id") Integer id){
         transferService.deleteById(id);
     }
+    @GetMapping("transfer/{id}")
+    public ResponseEntity<Transfer> getTransferById(@RequestParam("id") Integer id){
+        try {
+            return ResponseEntity.ok(transferService.getById(id));
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
 }
