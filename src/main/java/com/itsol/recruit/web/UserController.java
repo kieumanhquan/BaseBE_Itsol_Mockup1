@@ -25,6 +25,13 @@ public class UserController {
 
     public ResponseEntity<List<User>> getAllUserName() {
         return ResponseEntity.ok().body(userService.findAll());
+<<<<<<< HEAD
+=======
+    }
+
+    public ResponseEntity<List<User>> getAllUser(){
+        return  ResponseEntity.ok().body( userService.findAll());
+>>>>>>> f21ab92c26c41f019d00a8e171baf185775f7e50
     }
 
     //Trang code qlnv

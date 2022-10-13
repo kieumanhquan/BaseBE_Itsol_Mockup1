@@ -16,6 +16,12 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryExt {
 
     @Modifying
+<<<<<<< HEAD
+=======
+    @Query("update User u set u.password = :password where u.userName = :userName")
+    int updateUserPasswordName(@Param("userName") String userName,@Param("password") String password);
+
+>>>>>>> f21ab92c26c41f019d00a8e171baf185775f7e50
     @Query("update User u set u.password = :password where u.email = :email")
     int updateUserPassword(@Param("email") String email,
                            @Param("password") String password);
