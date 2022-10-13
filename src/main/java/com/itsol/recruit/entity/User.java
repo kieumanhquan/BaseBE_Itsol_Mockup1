@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -16,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class User{
+public class User {
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERS_SEQ")
@@ -41,11 +42,20 @@ public class User{
     @Column(name = "home_town")
     String homeTown;
 
+    @Column(name = "cccd")
+    String cccd;
+
     @Column(name = "avatar")
     String avatarName;
 
     @Column(name = "gender")
     String gender;
+
+    @Column(name = "salary")
+    Double salary;
+
+    @Column(name = "position")
+    String position;
 
     @JsonFormat(pattern = "YYYY-MM-dd")
     @Column(name = "birth_day")
