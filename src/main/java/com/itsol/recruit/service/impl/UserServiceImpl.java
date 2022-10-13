@@ -19,15 +19,9 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-
     @Override
     public User findById(Long id) {
         return userRepository.findById(id).get();
-    }
-
-    @Override
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
     }
 
     @Override
@@ -40,23 +34,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateUserPasswordName(String userName, String password) {
-        return 0;
+    public User findUserByUserName(String username) {
+        return userRepository.findByUserName(username);
     }
 
+    //trangcode
     @Override
-    public int updateUserPassword(String userName, String password) {
-        return userRepository.updateUserPassword(userName,password);
+    public User save(User user) {
+        return userRepository.save(user);
     }
-
-    @Override
+    //
     public User updateUser(User user) {
 
         return userRepository.save(user);
     }
 
-    @Override
-    public User findUserByUserName(String username) {
-        return userRepository.findByUserName(username);
-    }
 }
