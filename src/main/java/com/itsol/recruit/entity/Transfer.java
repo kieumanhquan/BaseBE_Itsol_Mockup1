@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity(name = "TRANSFERS")
@@ -19,25 +20,39 @@ public class Transfer {
     @SequenceGenerator(name = "TRANSFERS_SEQ", sequenceName = "TRANSFERS_SEQ", allocationSize = 1, initialValue = 1)
     @Column(name = "ID")
     int id;
+    @NotBlank
+    @Column(name = "TRANSFER_NAME")
+    String transferName;
     @ManyToOne
     @JoinColumn(name = "EMPLOYEE_ID")
     User employee;
+
+    @Column(name = "REASON_TRANSFER")
+    String reasonTransfer;
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    User hr;
+    @JoinColumn(name = "CREATOR_ID")
+    User creator;
     @ManyToOne
     @JoinColumn(name = "UNIT_OLD")
     Unit unitOld;
     @ManyToOne
     @JoinColumn(name = "UNIT_NEW")
     Unit unitNew;
-    @NotBlank
-    @Column(name = "name")
-    String name;
+
     @Column(name = "CREATED_DATE")
     Date createdDate;
+    @Column(name = "TRANSFER_DATE")
+    Date transferDate;
+    @Column(name = "REASON_OLD")
+    String reasonOld;
+    @Column(name = "REASON_NEW")
+    String reasonNew;
+    @Column(name = "IS_STATUS_OLD")
+    int isStatusOld;
+    @Column(name = "IS_STATUS_NEW")
+    int isStatusNew;
     @Column(name = "status")
     int status;
-    @Column(name = "ISDELETE")
+    @Column(name = "IS_DELETE")
     int isDelete;
 }

@@ -17,14 +17,14 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
 
     @Modifying
     @Query("update User u set u.password = :password where u.userName = :userName")
-    int updateUserPasswordName(@Param("userName") String userName,
+    int updateUserPasswordName(@Param("userName") String userName,@Param("password") String password);
 
-    @Query("update Users u set u.password = :password where u.email = :email")
+    @Query("update User u set u.password = :password where u.email = :email")
     int updateUserPassword(@Param("email") String email,
                            @Param("password") String password);
 
     User findByUserName(String userName);
 
-    @Query("select u from Users u where u.email = :email")
+    @Query("select u from User u where u.email = :email")
     User findByEmail(String email);
 }
