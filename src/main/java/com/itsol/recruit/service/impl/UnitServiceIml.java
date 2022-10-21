@@ -31,4 +31,10 @@ public class UnitServiceIml implements UnitService {
     public Unit update(Unit unit) {
         return unitRepo.save(unit);
     }
+
+    @Override
+    public List<Unit> findUnitNotJoinUser(Long id) {
+        return unitRepo.findUnitNotJoinUser(id);
+    }
+
 }

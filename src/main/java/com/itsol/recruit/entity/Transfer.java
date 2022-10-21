@@ -23,8 +23,9 @@ public class Transfer {
     @NotBlank
     @Column(name = "TRANSFER_NAME")
     String transferName;
+
     @ManyToOne
-    @JoinColumn(name = "EMPLOYEE_ID")
+    @JoinColumn (name = "EMPLOYEE_ID")
     User employee;
 
     @Column(name = "REASON_TRANSFER")

@@ -1,5 +1,6 @@
 package com.itsol.recruit.repository;
 
+import com.itsol.recruit.entity.Unit;
 import com.itsol.recruit.entity.User;
 import com.itsol.recruit.repository.repoext.UserRepositoryExt;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,12 +17,9 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryExt {
 
     @Modifying
-<<<<<<< HEAD
-=======
     @Query("update User u set u.password = :password where u.userName = :userName")
     int updateUserPasswordName(@Param("userName") String userName,@Param("password") String password);
 
->>>>>>> f21ab92c26c41f019d00a8e171baf185775f7e50
     @Query("update User u set u.password = :password where u.email = :email")
     int updateUserPassword(@Param("email") String email,
                            @Param("password") String password);
@@ -35,4 +33,10 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
 
     @Query("select u from User u where u.email = :email")
     User findByEmail(String email);
+    //chung
+    @Query("SELECT u FROM User u WHERE u.isDm = 1 AND u.unit = :cid")
+    User findDMbyUnit(@Param("cid")Unit unit);
+    //chung
+    @Query("SELECT u FROM User u WHERE u.isDm = 1 AND u.unit.id = :cid")
+    User findDMbyUnitId(@Param("cid") Integer id);
 }

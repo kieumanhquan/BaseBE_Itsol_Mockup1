@@ -1,5 +1,6 @@
 package com.itsol.recruit.service.impl;
 
+import com.itsol.recruit.entity.Unit;
 import com.itsol.recruit.entity.User;
 import com.itsol.recruit.repository.UserRepository;
 import com.itsol.recruit.service.UserService;
@@ -37,6 +38,16 @@ public class UserServiceImpl implements UserService {
     public User findUserByUserName(String username) {
         return userRepository.findByUserName(username);
     }
+    //chung
+    @Override
+    public User findDMByUnit(Unit unit) {
+        return userRepository.findDMbyUnit(unit);
+    }
+
+    @Override
+    public User findDMByUnitId(Integer id) {
+        return userRepository.findDMbyUnitId(id);
+    }
 
     //trangcode
     @Override
@@ -48,5 +59,6 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(user);
     }
+
 
 }
