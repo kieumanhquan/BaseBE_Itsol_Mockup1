@@ -65,6 +65,13 @@ public class User {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     boolean isDelete;
 
+    @Column(name = "IS_DM")
+    int isDm;
+
+    @ManyToOne
+    @JoinColumn(name="unit_id")
+    Unit unit;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "permisstion",

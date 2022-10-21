@@ -2,6 +2,7 @@ package com.itsol.recruit.web;
 
 import com.itsol.recruit.core.Constants;
 import com.itsol.recruit.entity.ResponseObject;
+import com.itsol.recruit.entity.Unit;
 import com.itsol.recruit.entity.User;
 import com.itsol.recruit.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -25,13 +26,10 @@ public class UserController {
 
     public ResponseEntity<List<User>> getAllUserName() {
         return ResponseEntity.ok().body(userService.findAll());
-<<<<<<< HEAD
-=======
     }
 
     public ResponseEntity<List<User>> getAllUser(){
         return  ResponseEntity.ok().body( userService.findAll());
->>>>>>> f21ab92c26c41f019d00a8e171baf185775f7e50
     }
 
     //Trang code qlnv
@@ -75,6 +73,14 @@ public class UserController {
     @GetMapping(value = "/user/username/{username}")
     public ResponseEntity<User> findUserByUserName(@PathVariable String username) {
         return ResponseEntity.ok().body(userService.findUserByUserName(username));
+    }
+    @GetMapping(value = "user/find-dm-by-unit/{id}")
+    public ResponseEntity<User> findDMbyUnit(@PathVariable("id") Integer id){
+        try {
+            return ResponseEntity.ok(userService.findDMByUnitId(id));
+        } catch (Exception e) {
+            return ResponseEntity.ok().build();
+        }
     }
 
 
