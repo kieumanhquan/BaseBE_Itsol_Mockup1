@@ -3,7 +3,6 @@ package com.itsol.recruit.entity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
 import java.util.Date;
 

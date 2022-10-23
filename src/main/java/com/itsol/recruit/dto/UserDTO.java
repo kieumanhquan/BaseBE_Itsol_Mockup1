@@ -1,5 +1,7 @@
 package com.itsol.recruit.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.itsol.recruit.entity.Unit;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -27,4 +29,16 @@ public class UserDTO {
     String newPassword;
 
     Date birthDay;
+
+    String name;
+
+    String literacy;
+
+    String position;
+
+    Long salary;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+
+    Unit unit;
 }

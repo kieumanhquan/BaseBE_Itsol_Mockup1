@@ -13,7 +13,7 @@ public class UnitServiceIml implements UnitService {
     @Autowired
     private UnitRepository unitRepo;
     @Override
-    public List<Unit> finAll() {
+    public List<Unit> findAll() {
         return unitRepo.findAll();
     }
 

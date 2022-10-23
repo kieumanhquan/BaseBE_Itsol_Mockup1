@@ -1,6 +1,7 @@
 package com.itsol.recruit.security;
 
 import com.itsol.recruit.entity.Role;
+import com.itsol.recruit.entity.Unit;
 import com.itsol.recruit.entity.User;
 import com.itsol.recruit.repository.RoleRepository;
 import com.itsol.recruit.repository.UserRepository;
@@ -43,14 +44,22 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
             Set<Role> adminRole = roleRepository.findByCode("ROLE_ADMIN");
             User user = new User();
             user.setUserName("admin");
-            user.setFullName("admin");
-            user.setEmail("admin@gmail.com");
+            user.setFullName("Em là ADMIN");
+            user.setEmail("levantrang4302@gmail.com");
             user.setPhoneNumber("0388888888");
+            user.setHomeTown("Hà Nội");
+            user.setAvatarName(null);
+            user.setGender("Nam");
             user.setBirthDay(new Date(1999 - 04 - 29));
-            user.setPassword(passwordEncoder.encode("admin1"));
+            user.setPassword(passwordEncoder.encode("Admin@123"));
             user.setActive(true);
+            user.setCccd("7236262626");
+            user.setPosition("Leader");
+            user.setSalary(129999);
+            user.setLiteracy("Cao Đẳng");
             user.setDelete(false);
             user.setRoles(adminRole);
+            user.setLeader(true);
             userRepository.save(user);
             alreadySetup = true;
         }
