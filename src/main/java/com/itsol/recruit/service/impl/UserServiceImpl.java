@@ -41,6 +41,16 @@ public class UserServiceImpl implements UserService {
     public User findUserByUserName(String username) {
         return userRepository.findByUserName(username);
     }
+    //chung
+    @Override
+    public User findDMByUnit(Unit unit) {
+        return userRepository.findDMbyUnit(unit);
+    }
+
+    @Override
+    public User findDMByUnitId(Integer id) {
+        return userRepository.findDMbyUnitId(id);
+    }
 
     @Override
     public User findUserByCCCD(String cccd) {
@@ -73,5 +83,6 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(user);
     }
+
 
 }

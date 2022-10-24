@@ -1,5 +1,4 @@
 package com.itsol.recruit.service;
-
 import com.itsol.recruit.entity.Unit;
 import com.itsol.recruit.entity.User;
 import org.springframework.data.domain.Page;
@@ -35,4 +34,8 @@ public interface UserService {
                          Date birthDay,
                          Unit unit,
                          Unit unitDm);
+    //Chung
+    User findDMByUnit(Unit unit);
+    //Chung
+    User findDMByUnitId(Integer id);
 }

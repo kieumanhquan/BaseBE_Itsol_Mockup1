@@ -58,4 +58,10 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
             @Param("unitDm") Unit unitDm
     );
 
+    //chung
+    @Query("SELECT u FROM User u WHERE u.isDm = 1 AND u.unit = :cid")
+    User findDMbyUnit(@Param("cid")Unit unit);
+    //chung
+    @Query("SELECT u FROM User u WHERE u.isDm = 1 AND u.unit.id = :cid")
+    User findDMbyUnitId(@Param("cid") Integer id);
 }

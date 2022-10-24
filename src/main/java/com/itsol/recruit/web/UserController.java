@@ -43,13 +43,9 @@ public class UserController {
     }
 
     @GetMapping(value = "/user")
-
-    public ResponseEntity<List<User>> getAllUserName() {
-        return ResponseEntity.ok().body(userService.findAll());
-    }
-
     public ResponseEntity<List<User>> getAllUser() {
         return ResponseEntity.ok().body(userService.findAll());
+
     }
 
     //Trang code get emp
@@ -162,7 +158,7 @@ public class UserController {
 
                 return ResponseEntity.status(HttpStatus.OK).body(
                         new ResponseObject(HttpStatus.OK, "Tìm thấy thành công",
-                                userService. sortByKey(pageable, dto.getFullName(),dto.getEmail(),dto.getLiteracy(),dto.getPosition(),dto.getSalary(),dto.getBirthDay(),dto.getUnit(), null)));
+                                userService.sortByKey(pageable, dto.getFullName(), dto.getEmail(), dto.getLiteracy(), dto.getPosition(), dto.getSalary(), dto.getBirthDay(), dto.getUnit(), null)));
             } else if (listRole.contains("ROLE_DM")) {
                 return ResponseEntity.status(HttpStatus.OK).body(
                         new ResponseObject(HttpStatus.OK, "Tìm thấy thành công",
@@ -191,6 +187,15 @@ public class UserController {
     @GetMapping(value = "/user/username/{username}")
     public ResponseEntity<User> findUserByUserName(@PathVariable String username) {
         return ResponseEntity.ok().body(userService.findUserByUserName(username));
+    }
+
+    @GetMapping(value = "user/find-dm-by-unit/{id}")
+    public ResponseEntity<User> findDMbyUnit(@PathVariable("id") Integer id) {
+        try {
+            return ResponseEntity.ok(userService.findDMByUnitId(id));
+        } catch (Exception e) {
+            return ResponseEntity.ok().build();
+        }
     }
 
 

@@ -9,4 +9,5 @@ public interface UnitService {
     public Unit finById(Integer id);
     public Unit create(Unit unit);
     public Unit update(Unit unit);
+    public List<Unit> findUnitNotJoinUser(Long id);
 }

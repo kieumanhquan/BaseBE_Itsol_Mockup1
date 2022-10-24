@@ -140,12 +140,19 @@ public class User {
     boolean isLeader;
 
     @Column(name = "birth_day")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     Date birthDay;
 
     @Column(name = "is_delete")
     @Type(type = "org.hibernate.type.NumericBooleanType")
     boolean isDelete;
+
+    @Column(name = "IS_DM")
+    int isDm;
+
+    @ManyToOne
+    @JoinColumn(name = "unit_id")
+    Unit unit;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -158,10 +165,6 @@ public class User {
     @Column(name = "active")
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean isActive;
-
-    @ManyToOne
-    @JoinColumn(name = "unit_id")
-    private Unit unit;
 
 
 }
