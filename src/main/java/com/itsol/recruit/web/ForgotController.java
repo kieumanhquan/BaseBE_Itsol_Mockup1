@@ -1,5 +1,6 @@
 package com.itsol.recruit.web;
 
+import com.itsol.recruit.core.Constants;
 import com.itsol.recruit.entity.Otp;
 import com.itsol.recruit.entity.ResponseObject;
 import com.itsol.recruit.entity.User;
@@ -8,18 +9,16 @@ import com.itsol.recruit.service.EmailSenderService;
 import com.itsol.recruit.service.OtpService;
 import com.itsol.recruit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 @RestController
-@RequestMapping("/api/public/forgot/")
+@RequestMapping(value = Constants.Api.Path.PUBLIC)
 public class ForgotController {
     @Autowired
     UserService userService;
@@ -33,7 +32,7 @@ public class ForgotController {
     OtpRepository otpRepository;
 
 
-    @GetMapping("{email}")
+    @GetMapping("/forgot/{email}")
     public ResponseEntity<ResponseObject> sendMail(@PathVariable("email") String email) {
         for (User x : userService.findAll()
         ) {
@@ -60,7 +59,7 @@ public class ForgotController {
     }
 
 
-    @GetMapping("checkotp")
+    @GetMapping("/forgot/checkotp")
     public ResponseEntity<?> findByUserId(@RequestParam("USER_ID") Long userId,
                                           @RequestParam("CODE") Integer code){
         Otp otp = otpRepository.findByUserId(userId,code);
