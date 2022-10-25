@@ -1,6 +1,7 @@
 package com.itsol.recruit.service.impl;
 
 import com.itsol.recruit.entity.Transfer;
+import com.itsol.recruit.entity.Unit;
 import com.itsol.recruit.repository.TransferRepository;
 import com.itsol.recruit.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,11 @@ public class TransferServiceIml implements TransferService {
     public Page<Transfer> getTransFer(Pageable pageable) {
         return transferRepo.findTransfer(pageable);
     }
+
+    @Override
+    public Page<Transfer> findTransfer(Pageable pageable,Unit unitDm  ,String name, String reason, Unit unitOld, Unit unitNew, Date succeeDay) {
+        return transferRepo.searchTransfer(pageable,unitDm,name,reason,unitOld,unitNew,succeeDay);
+    }
+
 
 }

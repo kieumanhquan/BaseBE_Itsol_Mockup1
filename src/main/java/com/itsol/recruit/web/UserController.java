@@ -58,6 +58,14 @@ public class UserController {
     //trang code add emp
     @PostMapping("/user")
     public ResponseEntity<ResponseObject> create(@RequestBody User user) {
+        try {
+            userService.save(user);
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("true", "Thêm nhân viên thành công","")
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject("false", "Thêm nhân viên thất bại", ""));
         System.out.println();
         if (userService.findUserByUserName(user.getUserName()) != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
