@@ -50,12 +50,12 @@ public class ForgotController {
                 emailSenderService.sendSimpleEmail(email, "OTP code", "Your OTP code is: " + otp);
                 System.out.println("OTP da duoc gui den email cua ban!");
                 return ResponseEntity.status(HttpStatus.OK).body(
-                        new ResponseObject(HttpStatus.OK, "OTP da duoc gui den email cua ban!", x)
+                        new ResponseObject("true", "OTP da duoc gui den email cua ban!", x)
                 );
             }
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                new ResponseObject(HttpStatus.BAD_REQUEST, "Email ko ton tai!", email)
+                new ResponseObject("false", "Email ko ton tai!", email)
         );
     }
 
@@ -66,11 +66,11 @@ public class ForgotController {
         Otp otp = otpRepository.findByUserId(userId,code);
         if(otpRepository.findByUserId(userId,code) == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST,"Mã OTP không đúng","")
+                    new ResponseObject("true","Mã OTP không đúng","")
             );
         } else if (otp.getIssue_At() <= new Date().getTime()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST, "Otp này đã hết hạn!", ""));
+                    new ResponseObject("false", "Otp này đã hết hạn!", ""));
         }
         return ResponseEntity.ok().body(HttpStatus.OK);
     }

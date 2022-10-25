@@ -42,12 +42,12 @@ public class UserController {
     public ResponseEntity<ResponseObject> create(@RequestBody User user) {
         try {
             userService.save(user);
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK, "Thêm nhân viên thành công")
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("true", "Thêm nhân viên thành công","")
             );
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST, "Thêm nhân viên thất bại", ""));
+                    new ResponseObject("false", "Thêm nhân viên thất bại", ""));
         }
     }
 

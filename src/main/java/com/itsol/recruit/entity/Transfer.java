@@ -39,15 +39,20 @@ public class Transfer {
     @ManyToOne
     @JoinColumn(name = "UNIT_NEW")
     Unit unitNew;
+    @ManyToOne
+    @JoinColumn(name = "ADMIN_REVIEW")
+    User admin;
 
     @Column(name = "CREATED_DATE")
     Date createdDate;
     @Column(name = "TRANSFER_DATE")
     Date transferDate;
-    @Column(name = "REASON_OLD")
-    String reasonOld;
-    @Column(name = "REASON_NEW")
-    String reasonNew;
+    @Column(name = "CANCLE_DATE")
+    String cancleDay;
+    @Column(name = "SUCCESS_DATE")
+    Date successDate;
+    @Column(name = "ADMIN_REVIEW_DATE")
+    Date adminReviewDate;
     @Column(name = "IS_STATUS_OLD")
     int isStatusOld;
     @Column(name = "IS_STATUS_NEW")
