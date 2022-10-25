@@ -58,36 +58,28 @@ public class UserController {
     //trang code add emp
     @PostMapping("/user")
     public ResponseEntity<ResponseObject> create(@RequestBody User user) {
-        try {
-            userService.save(user);
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("true", "Thêm nhân viên thành công","")
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject("false", "Thêm nhân viên thất bại", ""));
-        System.out.println();
         if (userService.findUserByUserName(user.getUserName()) != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST, "Username đã tồn tại", ""));
+                    new ResponseObject("false", "Username đã tồn tại", ""));
         }
         if (userService.findUserByEmail(user.getEmail()) != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST, "Email đã tồn tại", ""));
+                    new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "Email đã tồn tại", ""));
         }
         if (userService.findUserByCCCD(user.getCccd()) != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST, "CCCD đã tồn tại", ""));
+                    new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "CCCD đã tồn tại", ""));
         }
         if (userService.findUserByPhoneNumber(user.getPhoneNumber()) != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST, "Phone đã tồn tại", ""));
+                    new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "Phone đã tồn tại", ""));
         }
         String newPass = user.getPassword();
         user.setPassword(passwordEncoder.encode(newPass));
         userService.save(user);
-        return ResponseEntity.ok().body(new ResponseObject(HttpStatus.OK, "Tạo user mới thành công", ""));
+        return ResponseEntity.ok().body(new ResponseObject(HttpStatus.OK.toString(), "Thêm mới thành công", ""));
     }
+
 
     //trang code update emp
     @PutMapping("/user/{id}")
@@ -96,19 +88,19 @@ public class UserController {
 
         if (userService.findUserByUserName(user.getUserName()) != null && !userDB.getUserName().equals(user.getUserName())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST, "Username đã tồn tại", ""));
+                    new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "Username đã tồn tại", ""));
         }
         if (userService.findUserByEmail(user.getEmail()) != null && !userDB.getEmail().equals(user.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST, "Email đã tồn tại", ""));
+                    new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "Email đã tồn tại", ""));
         }
         if (userService.findUserByCCCD(user.getCccd()) != null && !userDB.getCccd().equals(user.getCccd())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST, "CCCD đã tồn tại", ""));
+                    new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "CCCD đã tồn tại", ""));
         }
         if (userService.findUserByPhoneNumber(user.getPhoneNumber()) != null && !userDB.getPhoneNumber().equals(user.getPhoneNumber())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST, "Phone đã tồn tại", ""));
+                    new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "Phone đã tồn tại", ""));
         }
 
         userDB.setFullName(user.getFullName());
@@ -127,7 +119,7 @@ public class UserController {
 
 
         userService.update(userDB);
-        return ResponseEntity.ok().body(new ResponseObject(HttpStatus.OK, "Cập nhật user thành công", ""));
+        return ResponseEntity.ok().body(new ResponseObject(HttpStatus.OK.toString(), "Cập nhật user thành công", ""));
     }
 
 
@@ -169,24 +161,25 @@ public class UserController {
                     || listRole.contains("ROLE_DM_HR")) {
 
                 return ResponseEntity.status(HttpStatus.OK).body(
-                        new ResponseObject(HttpStatus.OK, "Tìm thấy thành công",
+                        new ResponseObject(HttpStatus.OK.toString(), "Tìm thấy thành công",
                                 userService.sortByKey(pageable, dto.getFullName(), dto.getEmail(), dto.getLiteracy(), dto.getPosition(),
-                                        dto.getSalary(), dto.getBirthDay(), dto.getUnit(),null)));
+                                        dto.getSalary(), dto.getBirthDay(), dto.getUnit(), null)));
             } else if (listRole.contains("ROLE_DM")) {
                 return ResponseEntity.status(HttpStatus.OK).body(
-                        new ResponseObject(HttpStatus.OK, "Tìm thấy thành công",
+                        new ResponseObject(HttpStatus.OK.toString(), "Tìm thấy thành công",
                                 userService.sortByKey(pageable, dto.getFullName(), dto.getEmail(), dto.getLiteracy(), dto.getPosition(),
-                                        dto.getSalary(), dto.getBirthDay(), dto.getUnit(),u.getUnit())));
+                                        dto.getSalary(), dto.getBirthDay(), dto.getUnit(), u.getUnit())));
             }
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST,"Không tìm thấy"
-                            ));
+                    new ResponseObject("false", "Không tìm thấy",
+                            ""));
 
 
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST,"Không tìm thấy"));
+                    new ResponseObject("false", "Không tìm thấy",
+                            ""));
         }
     }
 
