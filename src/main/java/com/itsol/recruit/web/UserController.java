@@ -1,6 +1,7 @@
 package com.itsol.recruit.web;
 
 import com.itsol.recruit.core.Constants;
+import com.itsol.recruit.dto.SearchUserDTO;
 import com.itsol.recruit.dto.UserDTO;
 import com.itsol.recruit.entity.ResponseObject;
 import com.itsol.recruit.entity.Role;
@@ -133,10 +134,11 @@ public class UserController {
                                                     @RequestParam Long id,
                                                     @RequestParam(required = true) String sortByValue,
                                                     @RequestParam(required = true) String descAsc,
-                                                    @RequestBody UserDTO dto) {
+                                                    @RequestBody SearchUserDTO dto) {
         Pageable pageable;
         User u = userService.findById(id);
         Set<Role> roles = u.getRoles();
+        System.out.println("davao");
 
         Set<String> listRole = roles.stream().map(role -> role.getCode()).collect(Collectors.toSet());
         try {
@@ -147,32 +149,36 @@ public class UserController {
                 sortByValue = "name";
             }
             if (descAsc.equals("desc")) {
-                pageable = PageRequest.of(page, 5, Sort.by(sortByValue).descending());
+                pageable = PageRequest.of(page, 7, Sort.by(sortByValue).descending());
             } else {
-                pageable = PageRequest.of(page, 5, Sort.by(sortByValue).ascending());
+                pageable = PageRequest.of(page, 7, Sort.by(sortByValue).ascending());
+
             }
 
             System.out.println(dto.getBirthDay());
+            // kiem n ammin hr dm_hr
             if (listRole.contains("ROLE_ADMIN") || listRole.contains("ROLE_HR")
                     || listRole.contains("ROLE_DM_HR")) {
 
                 return ResponseEntity.status(HttpStatus.OK).body(
                         new ResponseObject(HttpStatus.OK, "Tìm thấy thành công",
-                                userService.sortByKey(pageable, dto.getFullName(), dto.getEmail(), dto.getLiteracy(), dto.getPosition(), dto.getSalary(), dto.getBirthDay(), dto.getUnit(), null)));
+                                userService.sortByKey(pageable, dto.getFullName(), dto.getEmail(), dto.getLiteracy(), dto.getPosition(),
+                                        dto.getSalary(), dto.getBirthDay(), dto.getUnit(),null)));
             } else if (listRole.contains("ROLE_DM")) {
                 return ResponseEntity.status(HttpStatus.OK).body(
                         new ResponseObject(HttpStatus.OK, "Tìm thấy thành công",
-                                userService.sortByKey(pageable, dto.getName(), dto.getEmail(), dto.getLiteracy(), dto.getPosition(),
-                                        dto.getSalary(), dto.getBirthDay(), dto.getUnit(), u.getUnit())));
+                                userService.sortByKey(pageable, dto.getFullName(), dto.getEmail(), dto.getLiteracy(), dto.getPosition(),
+                                        dto.getSalary(), dto.getBirthDay(), dto.getUnit(),u.getUnit())));
             }
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST, "Không tìm thấy!", ""));
+                    new ResponseObject(HttpStatus.BAD_REQUEST,"Không tìm thấy"
+                            ));
 
 
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST, "Không tìm thấy!", ""));
+                    new ResponseObject(HttpStatus.BAD_REQUEST,"Không tìm thấy"));
         }
     }
 

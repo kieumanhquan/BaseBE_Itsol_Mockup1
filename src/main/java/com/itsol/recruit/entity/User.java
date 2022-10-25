@@ -98,7 +98,7 @@ public class User {
     @SequenceGenerator(name = "USERS_SEQ", sequenceName = "USERS_SEQ", allocationSize = 1, initialValue = 1)
     Long id;
 
-    @Column(name = "fullname")
+    @Column(name = "fullName")
     String fullName;
 
     @Column(name = "email")
