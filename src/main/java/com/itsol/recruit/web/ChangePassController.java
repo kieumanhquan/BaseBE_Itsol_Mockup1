@@ -1,5 +1,6 @@
 package com.itsol.recruit.web;
 
+import com.itsol.recruit.core.Constants;
 import com.itsol.recruit.entity.ResponseObject;
 import com.itsol.recruit.entity.User;
 import com.itsol.recruit.service.UserService;
@@ -10,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/public/")
+@RequestMapping(value = Constants.Api.Path.PUBLIC)
 public class ChangePassController {
 
     @Autowired
