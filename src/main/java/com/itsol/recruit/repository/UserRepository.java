@@ -37,13 +37,11 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
     @Query("select u from User u where u.cccd =?1")
     User findByCCCD (String cccd);
 
-    @Query("SELECT u FROM User u where " +
-            "(u.unit = :unitDm  or :unitDm is null) " +
-            " and (lower(u.fullName)  like '%' ||  lower(:fullName) || '%' or :name is null)" +
+    @Query("SELECT u FROM User u where (u.unit = :unitDm  or :unitDm is null) and (lower(u.fullName)  like '%' ||  lower(:fullName) || '%' or :fullName is null)" +
             " and (lower(u.email)  like '%' ||  lower(:email) || '%' or :email is null)" +
             " and (lower(u.literacy)  like '%' ||  lower(:literacy) || '%' or :literacy is null)" +
             " and (lower(u.position)  like '%' ||  lower(:position) || '%' or :position is null)" +
-            " and (u.salary  = :salary  or :salary is null)" +
+            " and  (u.salary  = :salary  or :salary is null)" +
             " and (u.birthDay = :birthDay  or :birthDay is null)" +
             "and   (u.unit  =:unit or :unit is null)")
     Page<User> findByKey(

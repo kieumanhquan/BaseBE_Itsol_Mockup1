@@ -68,8 +68,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> sortByKey(Pageable pageable, String name, String email, String literacy, String position, Long salary, Date birthDay, Unit unit, Unit unitDm) {
-        return userRepository.findByKey(pageable, name, email, literacy, position, salary, birthDay, unit, unitDm);
+    public Page<User> sortByKey(Pageable pageable, String fullName, String email, String literacy,
+                                String position, Long salary, Date birthDay, Unit unit,   Unit unitDm) {
+        return userRepository.findByKey(pageable,fullName,email,literacy,position,salary,birthDay,unit,unitDm);
     }
 
     //trangcode

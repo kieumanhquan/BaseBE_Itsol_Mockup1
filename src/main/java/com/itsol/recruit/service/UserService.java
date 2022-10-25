@@ -26,7 +26,7 @@ public interface UserService {
     User findUserByPhoneNumber(String phoneNumber);
 
     Page<User> sortByKey(Pageable pageable,
-                         String name,
+                         String fullName,
                          String email,
                          String literacy,
                          String position,
